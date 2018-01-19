@@ -16,9 +16,10 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from scanner.views import home
-from account.views import login_view
+from account.views import login_view, collect_or_deposit_view
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', login_view, name='login'),
+    url(r'^collect_or_deposit', collect_or_deposit_view, name='collect_or_deposit')
 ]

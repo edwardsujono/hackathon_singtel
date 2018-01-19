@@ -10,4 +10,5 @@ def login_view(request):
     return render(request, 'login.html')
 
 
-
+def collect_or_deposit_view(request):
+    return render(request, 'collect_or_deposit.html')

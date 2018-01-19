@@ -1,0 +1,34 @@
+body{
+    width: 100%;
+    height: 100%;
+}
+
+.container{
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+
+	-ms-flex-align: center;
+	-webkit-align-items: center;
+	-webkit-box-align: center;
+
+	align-items: center;
+
+    height: 50vh;
+}
+
+#drop_notes_title{
+    margin-left: 1rem;
+}
+
+
+#form_login{
+    width: 50%;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+
+#first_card{
+    align-items: right;
+}
