@@ -6,4 +6,5 @@ $(function(){
             window.location.href = '/collect_or_deposit';
         }
     );
+
 });
