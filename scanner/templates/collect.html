@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>DropNotes</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="./css/overrides.css">
+	<script src="https://use.fontawesome.com/a2cb36dda9.js"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="col-12">
+			<div class="row mt-5">
+				<img src="https://via.placeholder.com/270x60">
+			</div>
+			<div class="row u-flex-align-center mt-5 mb-4">
+				<div class="mr-3">
+					<button type="button" class="btn btn-outline-secondary"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+				</div>
+				<div>
+					<h1>Collect Notes</h1>
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-group input-group-lg mb-5">
+					<input type="text" class="form-control" placeholder="Enter course index (e.g. FE1008)" aria-label="Recipient's username" aria-describedby="basic-addon2">
+					<div class="input-group-append">
+						<button class="btn btn-primary" type="button"><i class="fa fa-search" aria-hidden="true"></i> Search</button>
+					</div>
+				</div>
+			</div>
+				<div class="row">
+					<div class="course-list">
+						<div class="card mb-4" data-toggle="modal" data-target="#confirmation">
+							<div class="card-body">
+								<h5 class="card-title">DR2008: User Experience in Design</h5>
+								<p class="card-text">
+									<span class="text-secondary">Stock: 5</span>
+									<br>
+									<span class="text-secondary">Available at: Campus Supplies (NS2-02), EEE iHub (S4-B2B-04)</span>
+									<!--<br>
+										<span class="text-danger">Out of stock.</span> -->
+								</p><!-- 
+								<a href="#" class="btn btn-primary">Get this</a> -->
+							</div>
+						</div>
+						<div class="card mb-4" data-toggle="modal" data-target="#confirmation">
+							<div class="card-body">
+								<h5 class="card-title">DR2008: User Experience in Design</h5>
+								<p class="card-text">
+									<span class="text-secondary">Stock: 5</span>
+									<br>
+									<span class="text-secondary">Available at: Campus Supplies (NS2-02), EEE iHub (S4-B2B-04)</span>
+									<!--<br>
+										<span class="text-danger">Out of stock.</span> -->
+								</p><!-- 
+								<a href="#" class="btn btn-primary">Get this</a> -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="confirmation" tabindex="-1" role="dialog" aria-labelledby="confirmationTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="confirmationTitle">DR2008: User Experience in Design</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<p>Your points:</p>
+					<table class="table" border="0">
+						<tbody>
+							<tr>
+								<td>Please insert:</td>
+								<td>$1.50</td>
+							</tr>
+							<tr>
+								<td>Inserted:</td>
+								<td>$0</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="form-check">
+						<input class="form-check-input" type="checkbox" value="" id="defaultCheck1" checked>
+						<label class="form-check-label text-secondary" for="defaultCheck1">
+							I agree to take only the designated lecture note and not abuse the system in any way. Any existing damage on the notes is expected.
+						</label>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-primary" disabled>Confirm collection</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</html>
