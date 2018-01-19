@@ -82,7 +82,7 @@
 							</tr>
 							<tr>
 								<td>Inserted:</td>
-								<td>$0</td>
+                                <td>$<span id="dollar_inserted">0</span></td>
 							</tr>
 						</tbody>
 					</table>
@@ -95,7 +95,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-primary" disabled>Confirm collection</button>
+					<button type="button" class="btn btn-primary" disabled id="confirm_collection_button">Confirm collection</button>
 				</div>
 			</div>
 		</div>
@@ -129,4 +129,36 @@
 		cursor: pointer;
 	}
 </style>
+
+<script>
+    $(function(){
+
+        var initial_value = 0;
+        var target_value = 1.5;
+
+        $(window).keypress(function(e) {
+            var key = e.which;
+
+            if(key === 99){
+                initial_value += 0.5;
+                $("#dollar_inserted").html(initial_value);
+
+
+            }else if(key === 100){
+                initial_value -= 0.5;
+               $("#dollar_inserted").html(initial_value);
+            }
+
+            console.log("key", key);
+
+            if(initial_value >= target_value){
+                $("#confirm_collection_button").removeAttr("disabled");
+            }else{
+                 $("#confirm_collection_button").prop('disabled', true);
+            }
+
+        });
+
+    });
+</script>
 </html>
