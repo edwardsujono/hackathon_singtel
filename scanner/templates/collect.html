@@ -5,33 +5,36 @@
 	<title>DropNotes</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="./css/overrides.css">
-	<script src="https://use.fontawesome.com/a2cb36dda9.js"></script>
+	<!-- <script src="https://use.fontawesome.com/a2cb36dda9.js"></script> -->
+	<script defer src="https://use.fontawesome.com/releases/v5.0.4/js/all.js"></script>
 </head>
 <body>
 	<div class="container">
 		<div class="col-12">
 			<div class="row mt-5">
 				<img src="{% static 'images/logo-240-46.svg' %}" width="240" height="46">
+
 			</div>
 			<div class="row u-flex-align-center mt-5 mb-4">
 				<div class="mr-3">
-					<button type="button" class="btn btn-outline-secondary"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+					<a href="/collect_or_deposit" class="btn btn-outline-secondary"><i class="fas fa-chevron-left"></i></a>
 				</div>
 				<div>
-					<h2>Collect Notes</h2>
+					<h2>Collection</h2>
+
 				</div>
 			</div>
 			<div class="row">
-				<div class="input-group input-group-lg mb-5">
-					<input type="text" class="form-control" placeholder="Enter course index (e.g. FE1008)" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                    <div class="input-group input-group-lg mb-5">
+                        <input type="text" class="form-control" placeholder="Enter course index (e.g. FE1008)" aria-label="Recipient's username" aria-describedby="basic-addon2">
 					<div class="input-group-append">
-						<button class="btn btn-primary" type="button"><i class="fa fa-search" aria-hidden="true"></i> Search</button>
+						<button class="btn btn-primary" type="button"><i class="fas fa-search"></i> Search</button>
 					</div>
 				</div>
 			</div>
 				<div class="row">
 					<div class="course-list">
-						<div class="card mb-4" data-toggle="modal" data-target="#confirmation">
+						<div class="card mb-4" data-toggle="modal" data-target="#confirmation_collect_modal">
 							<div class="card-body">
 								<h5 class="card-title">DR2008: User Experience in Design</h5>
 								<p class="card-text">
@@ -64,7 +67,7 @@
 	</div>
 
 	<!-- Modal -->
-	<div class="modal fade" id="confirmation" tabindex="-1" role="dialog" aria-labelledby="confirmationTitle" aria-hidden="true">
+	<div class="modal fade" id="confirmation_collect_modal" tabindex="-1" role="dialog" aria-labelledby="confirmationTitle" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -101,15 +104,40 @@
 			</div>
 		</div>
 	</div>
+
+
+
+	<!-- Modal -->
+	<div class="modal fade" id="success_collect_modal" tabindex="-1" role="dialog" aria-labelledby="successTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+			<div class="modal-content">
+			<div class="card text-center" style="border: none;">
+				<div class="success-fail-image bg-primary">
+					<i class="far fa-check-circle"></i>
+				</div>
+				<div class="card-body">
+					<h2 class="mt-2">
+						A001
+					</h2>
+					<p class="card-text mt-2 ml-2 mr-2">Your lecture notes is ready to collect on locker A001.</p>
+					<div class="mt-4">
+						<a href="/" class="btn btn-primary">End session</a>
+					</div>
+					<div class="mt-2 mb-2">
+						<a href="/collect_or_deposit" class="btn btn-link">Perform another action</a>
+					</div>
+				</div>
+			</div>
+			</div>
+		</div>
+	</div>
+
+
 </body>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <style type="text/css">
-	.u-flex-align-center {
-		display: flex;
-		align-items: center;
-	}
 
 	.u-flex-justify-center {
 		display: flex;
@@ -128,6 +156,25 @@
 	.course-list > .card:hover {
 		background: rgba(0, 0, 0, 0.025);
 		cursor: pointer;
+	}
+
+    .u-flex-align-center {
+		display: flex;
+		align-items: center;
+	}
+
+	.u-flex-justify-center {
+		display: flex;
+		justify-content: center;
+	}
+
+	.success-fail-image {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: #fff;
+		font-size: 5em;
+		padding: 3rem 0;
 	}
 </style>
 
@@ -159,6 +206,14 @@
             }
 
         });
+
+
+        $("#confirm_collection_button").click(
+            function(){
+                $("#confirmation_collect_modal").modal('hide');
+                $("#success_collect_modal").modal('show');
+            }
+        );
 
     });
 </script>

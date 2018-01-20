@@ -5,14 +5,17 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="{% static 'css/account.css' %}">
+        <script defer src="https://use.fontawesome.com/releases/v5.0.4/js/all.js"></script>
+
     </head>
     <body style="width: 100%">
 
-        <div id="drop_notes_title">
-            <h2>DropNotes</h2>
-        </div>
+        <div class="container" id="content">
 
-        <div class="content" id="content">
+            <div class="row mt-5">
+                <img src="{% static 'images/logo-240-46.svg' %}" height="46" width="240">
+            </div>
+
             {% block content %}
             {% endblock %}
         </div>

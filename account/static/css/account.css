@@ -32,3 +32,23 @@ body{
 #first_card{
     align-items: right;
 }
+
+
+.u-flex-align-center {
+    display: flex;
+    align-items: center;
+}
+
+.u-flex-justify-center {
+    display: flex;
+    justify-content: center;
+}
+
+.success-fail-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 5em;
+    padding: 3rem 0;
+}

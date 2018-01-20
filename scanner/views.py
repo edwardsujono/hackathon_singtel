@@ -14,3 +14,7 @@ def start_deposit(request):
 
 def start_collect(request):
     return render(request, 'collect.html')
+
+
+def start_confirmation_modal(request):
+    return render(request, 'confirmationmodals.html')
