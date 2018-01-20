@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'django_filters',
     'account',
     'scanner',
-    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -56,6 +55,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'desktop_scanner.urls'
+CORS_ORIGIN_ALLOW_ALL = True
 
 TEMPLATES = [
     {

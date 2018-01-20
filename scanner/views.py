@@ -34,7 +34,9 @@ def get_collection(request):
         stock_json = {"key": stock.key, "stock": stock.stock, "location": stock.location}
         list_stock.append(stock_json)
 
-    return HttpResponse(json.dumps(list_stock), content_type='application/json')
+    response = HttpResponse(json.dumps(list_stock), content_type='application/json')
+    response["access-control-allow-origin"] = True
+    return response
 
 
 @csrf_exempt
