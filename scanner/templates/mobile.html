@@ -1,4 +1,3 @@
-{% load staticfiles %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,24 +7,20 @@
 	<script defer src="https://use.fontawesome.com/releases/v5.0.4/js/all.js"></script>
 </head>
 <body>
-	<div class="container">
+	<div class="container" style="padding: 0 2rem;">
 		<div class="col-12">
-			<div class="row mt-5">
+			<div class="row mt-4">
 				<img src="{% static 'images/logo-240-46.svg' %}" width="240" height="46">
 
 			</div>
-			<div class="row u-flex-align-center mt-5 mb-4">
-				<div class="mr-3">
-					<a href="/collect_or_deposit" class="btn btn-outline-secondary"><i class="fas fa-chevron-left"></i></a>
-				</div>
+			<div class="row u-flex-align-center mt-4 mb-4">
 				<div>
-					<h2>Collection</h2>
-
+					<h3>Available Notes</h3>
 				</div>
 			</div>
 			<div class="row">
-                <div class="input-group input-group-lg mb-5">
-                    <input type="text" id="search_input" class="form-control" placeholder="Enter course index (e.g. FE1008)" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                <div class="input-group input-group-lg mb-4">
+                    <input type="text" id="search_input" class="form-control" placeholder="Course index (e.g. FE1008)" aria-label="Recipient's username" aria-describedby="basic-addon2">
 					<div class="input-group-append">
 						<button id="search_button" class="btn btn-primary" type="button"><i class="fas fa-search"></i> Search</button>
 					</div>
@@ -39,71 +34,6 @@
 			</div>
 		</div>
 	</div>
-
-	<!-- Modal -->
-	<div class="modal fade" id="confirmation_collect_modal" tabindex="-1" role="dialog" aria-labelledby="confirmationTitle" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="confirmationTitle">Course Title</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<p>Notes price:</p>
-					<table class="table" border="0">
-						<tbody>
-							<tr>
-								<td>Please insert:</td>
-								<td>$1.50</td>
-							</tr>
-							<tr>
-								<td>Inserted:</td>
-                                <td>$<span id="dollar_inserted">0</span></td>
-							</tr>
-						</tbody>
-					</table>
-					<div class="form-check">
-						<input class="form-check-input" type="checkbox" value="" id="defaultCheck1" checked>
-						<label class="form-check-label text-secondary" for="defaultCheck1">
-							I agree to take only the designated lecture note and not abuse the system in any way. Any existing damage on the notes is expected.
-						</label>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-primary" disabled id="confirm_collection_button">Confirm collection</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- Modal -->
-	<div class="modal fade" id="success_collect_modal" tabindex="-1" role="dialog" aria-labelledby="successTitle" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered modal-sm" role="document">
-			<div class="modal-content">
-			<div class="card text-center" style="border: none;">
-				<div class="success-fail-image bg-primary">
-					<i class="far fa-check-circle"></i>
-				</div>
-				<div class="card-body">
-					<h2 class="mt-2">
-						A001
-					</h2>
-					<p class="card-text mt-2 ml-2 mr-2">Your lecture notes is ready to collect on locker A001.</p>
-					<div class="mt-4">
-						<a href="/" class="btn btn-primary">End session</a>
-					</div>
-					<div class="mt-2 mb-2">
-						<a href="/collect_or_deposit" class="btn btn-link">Perform another action</a>
-					</div>
-				</div>
-			</div>
-			</div>
-		</div>
-	</div>
-
 
 </body>
 <script
@@ -129,11 +59,6 @@
 		box-shadow: 0 0.25rem 0.5rem 0 rgba(0, 0, 0, 0.05);
 	}
 
-	.course-list > .card:hover {
-		background: rgba(0, 0, 0, 0.025);
-		cursor: pointer;
-	}
-
     .u-flex-align-center {
 		display: flex;
 		align-items: center;
@@ -155,20 +80,9 @@
 </style>
 
 <script>
+
     var url = 'http://128.199.94.136:8000'; // Remote
     // var url = 'http://192.168.1.126:8000'; // Local
-
-    // var data_clicked;
-    var stock_clicked;
-    var key_clicked;
-
-    function updateModal(course_code, stock) {
-        console.log('SPAWN_MODAL');
-        key_clicked = course_code;
-        stock_clicked = stock;
-        // // // $('#confirmationTitle').html(data.key);
-        document.getElementById('confirmationTitle').innerHTML = course_code;
-    }
 
     $(function(){
 
@@ -200,7 +114,7 @@
                 if (data.stock > 0) {
                     $("#course-list").append(`
 
-                        <div class="card mb-4 course" data-toggle="modal" data-target="#confirmation_collect_modal" key="`+ data.key +`" stock=`+ data.stock +` onclick=updateModal('`+data.key+`',`+ data.stock +`)>
+                        <div class="card mb-4 course">
                             <div class="card-body">
                                 <h5 class="card-title">` + data.key + `</h5>
                                 <p class="card-text">
@@ -218,7 +132,7 @@
                 else {
                     $("#course-list").append(`
 
-                        <div class="card mb-4 course" data-toggle="modal" data-target="#confirmation_collect_modal" key="`+ data.key +`" stock=`+ data.stock +` onclick=updateModal('`+data.key+`',`+ data.stock +`)>
+                        <div class="card mb-4 course">
                             <div class="card-body">
                                 <h5 class="card-title">` + data.key + `</h5>
                                 <p class="card-text">
@@ -236,12 +150,6 @@
         } else {
             // Course not found
         }
-    }
-
-    // Update data_clicked global variable with assigned data on each element
-    var updateConfirmationCollectModal = function(data) {
-        data_clicked = data;
-        document.getElementById('confirmationTitle').innerHTML = data_clicked.key;
     }
 
         // Search input field handler
@@ -322,85 +230,7 @@
 
             }
         });
-
-        // Confirmation handler
-        $("#confirm_collection_button").click(
-            function(){
-                $("#confirmation_collect_modal").modal('hide');
-                $("#success_collect_modal").modal('show');
-                $.post( url+"/post_collection", JSON.stringify({ key: key_clicked, stock: stock_clicked-1 }))
-                    .done(function( data ) {
-                });
-            }
-        );
-
-        $('#confirmation_collect_modal').on('hidden.bs.modal', function (e) {
-            initial_value = 0;
-            $("#dollar_inserted").html(initial_value);
-
-            // Empty, display all
-            $.ajax({
-                url: url+"/get_collection",
-                headers: {
-                    "Access-Control-Allow-Origin": "*"
-                },
-                success: function(responses) {
-                    console.log("Displaying all lecture notes");
-                    console.log("data", responses);
-                    generate(responses);
-                },
-                method: "GET"
-            });
-        });
-
-        $('#success_collect_modal').on('hidden.bs.modal', function (e) {
-            initial_value = 0;
-            $("#dollar_inserted").html(initial_value);
-
-            // Empty, display all
-            $.ajax({
-                url: url+"/get_collection",
-                headers: {
-                    "Access-Control-Allow-Origin": "*"
-                },
-                success: function(responses) {
-                    console.log("Displaying all lecture notes");
-                    console.log("data", responses);
-                    generate(responses);
-                },
-                method: "GET"
-            });
-        });
-
-        var initial_value = 0;
-        var target_value = 1.5;
-
-        $(window).keypress(function(e) {
-            var key = e.which;
-
-            if(key === 99){
-                initial_value += 0.5;
-                $("#dollar_inserted").html(initial_value);
-
-
-            }else if(key === 100){
-                initial_value -= 0.5;
-               $("#dollar_inserted").html(initial_value);
-            }
-
-            console.log("key", key);
-
-            if(initial_value >= target_value){
-                $("#confirm_collection_button").removeAttr("disabled");
-            }else{
-                 $("#confirm_collection_button").prop('disabled', true);
-            }
-
-        });
-
     });
-
-
 
 </script>
 </html>
