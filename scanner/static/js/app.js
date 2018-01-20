@@ -1,6 +1,9 @@
 /**
  * Created by edwardsujono on 20/1/18.
  */
+
+var key_chossen = null;
+
 var app = new Vue({
   el: '#app',
   data: {
@@ -16,6 +19,11 @@ var app = new Vue({
 
     self.scanner.addListener('scan', function (content, image) {
         $("#confirmation").modal('show');
+        if(content == 1){
+            key_chossen = "DR2009";
+        }else{
+            key_chossen = "DR2008";
+        }
 
     });
     Instascan.Camera.getCameras().then(function (cameras) {

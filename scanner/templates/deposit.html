@@ -103,8 +103,12 @@
 	</div>
 
   </body>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script
+    src="https://code.jquery.com/jquery-3.2.1.min.js"
+    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous">
+</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script type="text/javascript" src="{%  static 'js/app.js'%}"></script>
 <style type="text/css">
@@ -156,6 +160,7 @@
     $(function(){
 
         var isChecked = false;
+        var list_courses = [];
 
         $('#defaultCheck1').click(
             function(){
@@ -175,8 +180,49 @@
             function(){
                 $("#confirmation").modal('hide');
                 $('#success_modal').modal('show');
+                call_api_deposit();
             }
         );
+
+
+        function call_api_deposit(){
+
+            var data_post = {};
+
+            list_courses.forEach(function(data){
+                if(data.key == key_chossen){
+                    data_post = data;
+                }
+            });
+
+             $.ajax({
+                url: "http://128.199.94.136:8000/post_collection",
+                headers: {
+                    "Access-Control-Allow-Origin": "*"
+                },
+                success: function(responses) {
+                },
+                method: "POST",
+                data: JSON.stringify({key: key_chossen, stock: data_post.get("stock")+1})
+            });
+        }
+
+        function call_api_get_collection(){
+             $.ajax({
+                url: "http://128.199.94.136:8000/get_collection",
+                headers: {
+                    "Access-Control-Allow-Origin": "*"
+                },
+                success: function(responses) {
+                   list_courses = responses;
+                },
+                method: "GET"
+            });
+        }
+
+        // call api first
+        call_api_get_collection();
+
 
     });
 </script>
