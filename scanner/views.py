@@ -24,6 +24,10 @@ def start_confirmation_modal(request):
     return render(request, 'confirmationmodals.html')
 
 
+def start_collect_mobile(request):
+    return render(request, 'mobile.html')
+
+
 @csrf_exempt
 def get_collection(request):
 
