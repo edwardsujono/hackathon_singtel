@@ -25,7 +25,7 @@ SECRET_KEY = 'is8i35ns0fa_o#4di^)dx2#^@#q6+7!ad9@f&8hs1wy#&l59-n'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', '192.168.1.126']
 
 
 # Application definition
@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'django_filters',
     'account',
-    'scanner'
+    'scanner',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -67,6 +68,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'corsheaders.middleware.CorsMiddleware',
+                'django.middleware.common.CommonMiddleware',
+
             ],
         },
 

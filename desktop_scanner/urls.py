@@ -17,7 +17,8 @@ from django.conf.urls import url
 from django.contrib import admin
 from scanner.views import home
 from account.views import login_view, collect_or_deposit_view
-from scanner.views import  start_collect, start_deposit, start_confirmation_modal
+from scanner.views import  start_collect, start_deposit, \
+    start_confirmation_modal, get_collection, insert_stock, post_collection, search_collection
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -25,6 +26,10 @@ urlpatterns = [
     url(r'^collect_or_deposit', collect_or_deposit_view, name='collect_or_deposit'),
     url(r'^collect', start_collect, name='start_collect'),
     url(r'^deposit', start_deposit, name='start_deposit'),
-    url(r'^confirmation_modal', start_confirmation_modal, name='confirmation_modal')
+    url(r'^confirmation_modal', start_confirmation_modal, name='confirmation_modal'),
+    url(r'^get_collection', get_collection, name='get_collection'),
+    url(r'^insert_stock', insert_stock, name='insert_stock'),
+    url(r'^post_collection', post_collection, name='post_collection'),
+    url(r'^search_collection', search_collection, name='search_collection')
 
 ]
