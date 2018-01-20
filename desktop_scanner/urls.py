@@ -31,6 +31,6 @@ urlpatterns = [
     url(r'^insert_stock', insert_stock, name='insert_stock'),
     url(r'^post_collection', post_collection, name='post_collection'),
     url(r'^search_collection', search_collection, name='search_collection'),
-    url(r'^collection_mobile', start_collect_mobile, name='collection_mobile')
+    url(r'^mobile_collection', start_collect_mobile, name='collection_mobile')
 
 ]
