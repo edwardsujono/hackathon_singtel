@@ -19,12 +19,12 @@ var app = new Vue({
 
     self.scanner.addListener('scan', function (content, image) {
         $("#confirmation").modal('show');
-        if(content == 1){
+        if(content === "1"){
            window.key_choosen = "DR2009";
            $("#project_key").html("DR2009");
 	}else{
            window.key_choosen = "DR2008";
-	   $("project_key").html("DR2008");
+	   $("#project_key").html("DR2008");
         }
 
     });
