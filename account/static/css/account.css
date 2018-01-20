@@ -3,19 +3,19 @@ body{
     height: 100%;
 }
 
-.container{
-	display: -ms-flexbox;
-	display: -webkit-flex;
-	display: flex;
+/*.container{*/
+	/*display: -ms-flexbox;*/
+	/*display: -webkit-flex;*/
+	/*display: flex;*/
 
-	-ms-flex-align: center;
-	-webkit-align-items: center;
-	-webkit-box-align: center;
+	/*-ms-flex-align: center;*/
+	/*-webkit-align-items: center;*/
+	/*-webkit-box-align: center;*/
 
-	align-items: center;
+	/*align-items: center;*/
 
-    height: 50vh;
-}
+    /*height: 50vh;*/
+/*}*/
 
 #drop_notes_title{
     margin-left: 1rem;
