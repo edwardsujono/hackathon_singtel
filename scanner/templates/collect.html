@@ -155,218 +155,17 @@
 
 <script>
 
-    var data_clicked;
+    // var data_clicked;
+    var stock_clicked;
+    var key_clicked;
 
-    // function updateModal(course_code) {
-    //     console.log('SPAWN_MODAL');
-    //     // data_clicked = course_code;
-    //     // // // $('#confirmationTitle').html(data.key);
-    //     // document.getElementById('confirmationTitle').innerHTML = course_code;
-    // }
-
-    // function generate(responses) {
-    //     // Clear all
-    //     document.getElementById('course-list').innerHTML = "";
-
-    //     // Regenerate
-    //     if (responses.length > 0) {
-    //         responses.forEach((data) => {
-
-    //             // Have stock
-    //             if (data.stock > 0) {
-    //                 $("#course-list").append(`
-    //                     <div class="card mb-4 course" id="` + data.key + `" onclick="updateModal(`+  data.key  +`)" data-toggle="modal" data-target="#confirmation_collect_modal">
-    //                         <div class="card-body">
-    //                             <h5 class="card-title">` + data.key + `</h5>
-    //                             <p class="card-text">
-    //                                 <span class="text-secondary">Stock: ` + data.stock + `</span>
-    //                                 <br>
-    //                                 <span class="text-secondary">Available at: ` + data.location + `</span>
-    //                             </p>
-    //                         </div>
-    //                     </div>
-    //                 `);
-    //             }
-
-    //             // No Stock
-    //             else {
-    //                 $("#course-list").append(`
-    //                     <div class="card mb-4 course" onclick="updateModal(` + data.key + `);" data-toggle="modal" data-target="#confirmation_collect_modal" key="` + data.key + `">
-    //                         <div class="card-body">
-    //                             <h5 class="card-title">` + data.key + `</h5>
-    //                             <p class="card-text">
-    //                                 <span class="text-danger">Out of stock.</span>
-    //                                 <br>
-    //                                 <span class="text-secondary">Available at: ` + data.location + `</span>
-    //                             </p>
-    //                         </div>
-    //                     </div>
-    //                 `);
-    //             }
-    //         })
-    //     } else {
-    //         // Course not found
-    //     }
-
-    //     // Attach listener
-    //     document.getElementById(data.key).addEventListener("click", function() {
-    //         data_clicked = data;
-    //         document.getElementById('confirmationTitle').innerHTML = data.key;
-    //         console.log('clicked ', data.key);
-
-    //         // // Replace listener on collect confirmation modal
-    //         // $("#confirm_collection_button").unbind();
-    //         // $("#confirm_collection_button").click(
-    //         //     attachConfirmationCollectHandler(data);
-    //         // );
-    //     })
-    // }
-
-    var courses = new Array();
-
-    var generate = function(responses) {
-
-        // Clear all displayed courses
-        document.getElementById('course-list').innerHTML = "";
-
-        // Regenerate & redisplay courses
-        if (responses.length > 0) {
-            for (var ii = 0; ii < responses.length; ii++) {
-                // Have stock
-                if (responses[ii].stock > 0) {
-                    courses[ii] = document.createElement("div");
-                    courses[ii].append(`
-
-                        <div class="card mb-4 course" data-toggle="modal" data-target="#confirmation_collect_modal">
-                            <div class="card-body">
-                                <h5 class="card-title">` + responses[ii].key + `</h5>
-                                <p class="card-text">
-                                    <span class="text-secondary">Stock: ` + responses[ii].stock + `</span>
-                                    <br>
-                                    <span class="text-secondary">Available at: ` + responses[ii].location + `</span>
-                                </p>
-                            </div>
-                        </div>
-
-                    `);
-                }
-
-                // No stock
-                else {
-
-                }
-
-                // Add event handler to this element
-                courses[ii].addEventListener('click', updateConfirmationCollectModal(responses[ii]));
-            };
-        } else {
-            // Course not found
-        }
+    function updateModal(course_code, stock) {
+        console.log('SPAWN_MODAL');
+        key_clicked = course_code;
+        stock_clicked = stock;
+        // // // $('#confirmationTitle').html(data.key);
+        document.getElementById('confirmationTitle').innerHTML = course_code;
     }
-
-    // Update data_clicked global variable with assigned data on each element
-    var updateConfirmationCollectModal = function(data) {
-        data_clicked = data;
-        document.getElementById('confirmationTitle').innerHTML = data.key;
-    }
-
-    // Search input field handler
-    $('#search_input').on('input', function() {
-        // Init courses global variable before regenerating the array
-        courses = [];
-
-        if ($('#search_input')[0].value.length > 0) {
-
-            $.ajax({
-                url: "http://192.168.1.126:8000/search_collection",
-                headers: {
-                    "Access-Control-Allow-Origin": "*"
-                },
-                success: function(responses) {
-                    console.log("data", responses);
-                    generate(responses);
-                },
-                method: "POST",
-                data: JSON.stringify({ "query": $('#search_input')[0].value })
-            });
-
-        } else {
-            // Empty, display all
-            $.ajax({
-                url: "http://192.168.1.126:8000/get_collection",
-                headers: {
-                    "Access-Control-Allow-Origin": "*"
-                },
-                success: function(responses) {
-                    console.log("Displaying all lecture notes");
-                    console.log("data", responses);
-                    generate(responses);
-                },
-                method: "GET"
-            });
-
-        }
-    });
-
-    // Search button handler
-    $('#search_button').on('click', function() {
-
-        console.log($('#search_input')[0].value);
-
-        // Init courses global variable before regenerating the array
-        courses = [];
-
-        if ($('#search_input')[0].value.length > 0) {
-
-            $.ajax({
-                url: "http://192.168.1.126:8000/search_collection",
-                headers: {
-                    "Access-Control-Allow-Origin": "*"
-                },
-                success: function(responses) {
-                    console.log("data", responses);
-                    generate(responses);
-                },
-                method: "POST",
-                data: JSON.stringify({ "query": $('#search_input')[0].value })
-            });
-
-        } else {
-            // Empty, display all
-            $.ajax({
-                url: "http://192.168.1.126:8000/get_collection",
-                headers: {
-                    "Access-Control-Allow-Origin": "*"
-                },
-                success: function(responses) {
-                    console.log("Displaying all lecture notes");
-                    console.log("data", responses);
-                    generate(responses);
-                },
-                method: "GET"
-            });
-
-        }
-    });
-
-    // var attachConfirmationCollectHandler = function(data) {
-    //     $("#confirmation_collect_modal").modal('hide');
-    //     $("#success_collect_modal").modal('show');
-    //     $.post( "http://192.168.1.126:8000/post_collection", { key: data.key, value: data.stock-1 })
-    //         .done(function( data ) {
-    //     });
-    // }
-
-    // Confirmation handler
-    $("#confirm_collection_button").click(
-        function(){
-            $("#confirmation_collect_modal").modal('hide');
-            $("#success_collect_modal").modal('show');
-            $.post( "http://192.168.1.126:8000/post_collection", { key: data_clicked.key, value: data_clicked.stock-1 })
-                .done(function( data ) {
-            });
-        }
-    );
 
     $(function(){
 
@@ -382,6 +181,192 @@
                 generate(responses);
             },
             method: "GET"
+        });
+
+    var courses = new Array();
+
+    var generate = function(responses) {
+
+        // Clear all displayed courses
+        document.getElementById('course-list').innerHTML = "";
+
+        // Regenerate & redisplay courses
+        if (responses.length > 0) {
+            responses.forEach((data) => {
+                // Have stock
+                if (data.stock > 0) {
+                    $("#course-list").append(`
+
+                        <div class="card mb-4 course" data-toggle="modal" data-target="#confirmation_collect_modal" key="`+ data.key +`" stock=`+ data.stock +` onclick=updateModal('`+data.key+`',`+ data.stock +`)>
+                            <div class="card-body">
+                                <h5 class="card-title">` + data.key + `</h5>
+                                <p class="card-text">
+                                    <span class="text-secondary">Stock: ` + data.stock + `</span>
+                                    <br>
+                                    <span class="text-secondary">Available at: ` + data.location + `</span>
+                                </p>
+                            </div>
+                        </div>
+
+                    `);
+                }
+
+                // No stock
+                else {
+                    $("#course-list").append(`
+
+                        <div class="card mb-4 course" data-toggle="modal" data-target="#confirmation_collect_modal" key="`+ data.key +`" stock=`+ data.stock +` onclick=updateModal('`+data.key+`',`+ data.stock +`)>
+                            <div class="card-body">
+                                <h5 class="card-title">` + data.key + `</h5>
+                                <p class="card-text">
+                                    <span class="text-danger">Out of stock</span>
+                                    <br>
+                                    <span class="text-secondary">Available at: ` + data.location + `</span>
+                                </p>
+                            </div>
+                        </div>
+
+                    `);
+                }
+
+            });
+        } else {
+            // Course not found
+        }
+    }
+
+    // Update data_clicked global variable with assigned data on each element
+    var updateConfirmationCollectModal = function(data) {
+        data_clicked = data;
+        document.getElementById('confirmationTitle').innerHTML = data_clicked.key;
+    }
+
+        // Search input field handler
+        $('#search_input').on('input', function() {
+            // Init courses global variable before regenerating the array
+            courses = [];
+
+            if ($('#search_input')[0].value.length > 0) {
+
+                $.ajax({
+                    url: "http://192.168.1.126:8000/search_collection",
+                    headers: {
+                        "Access-Control-Allow-Origin": "*"
+                    },
+                    success: function(responses) {
+                        console.log("data", responses);
+                        generate(responses);
+                    },
+                    method: "POST",
+                    data: JSON.stringify({ "query": $('#search_input')[0].value })
+                });
+
+            } else {
+                // Empty, display all
+                $.ajax({
+                    url: "http://192.168.1.126:8000/get_collection",
+                    headers: {
+                        "Access-Control-Allow-Origin": "*"
+                    },
+                    success: function(responses) {
+                        console.log("Displaying all lecture notes");
+                        console.log("data", responses);
+                        generate(responses);
+                    },
+                    method: "GET"
+                });
+
+            }
+        });
+
+        // Search button handler
+        $('#search_button').on('click', function() {
+
+            console.log($('#search_input')[0].value);
+
+            // Init courses global variable before regenerating the array
+            courses = [];
+
+            if ($('#search_input')[0].value.length > 0) {
+
+                $.ajax({
+                    url: "http://192.168.1.126:8000/search_collection",
+                    headers: {
+                        "Access-Control-Allow-Origin": "*"
+                    },
+                    success: function(responses) {
+                        console.log("data", responses);
+                        generate(responses);
+                    },
+                    method: "POST",
+                    data: JSON.stringify({ "query": $('#search_input')[0].value })
+                });
+
+            } else {
+                // Empty, display all
+                $.ajax({
+                    url: "http://192.168.1.126:8000/get_collection",
+                    headers: {
+                        "Access-Control-Allow-Origin": "*"
+                    },
+                    success: function(responses) {
+                        console.log("Displaying all lecture notes");
+                        console.log("data", responses);
+                        generate(responses);
+                    },
+                    method: "GET"
+                });
+
+            }
+        });
+
+        // Confirmation handler
+        $("#confirm_collection_button").click(
+            function(){
+                $("#confirmation_collect_modal").modal('hide');
+                $("#success_collect_modal").modal('show');
+                $.post( "http://192.168.1.126:8000/post_collection", JSON.stringify({ key: key_clicked, stock: stock_clicked-1 }))
+                    .done(function( data ) {
+                });
+            }
+        );
+
+        $('#confirmation_collect_modal').on('hidden.bs.modal', function (e) {
+            initial_value = 0;
+            $("#dollar_inserted").html(initial_value);
+
+            // Empty, display all
+            $.ajax({
+                url: "http://192.168.1.126:8000/get_collection",
+                headers: {
+                    "Access-Control-Allow-Origin": "*"
+                },
+                success: function(responses) {
+                    console.log("Displaying all lecture notes");
+                    console.log("data", responses);
+                    generate(responses);
+                },
+                method: "GET"
+            });
+        });
+
+        $('#success_collect_modal').on('hidden.bs.modal', function (e) {
+            initial_value = 0;
+            $("#dollar_inserted").html(initial_value);
+
+            // Empty, display all
+            $.ajax({
+                url: "http://192.168.1.126:8000/get_collection",
+                headers: {
+                    "Access-Control-Allow-Origin": "*"
+                },
+                success: function(responses) {
+                    console.log("Displaying all lecture notes");
+                    console.log("data", responses);
+                    generate(responses);
+                },
+                method: "GET"
+            });
         });
 
         var initial_value = 0;
