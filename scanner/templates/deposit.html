@@ -214,7 +214,8 @@
                     "Access-Control-Allow-Origin": "*"
                 },
                 success: function(responses) {
-                   list_courses = responses;
+                   	list_courses = responses;
+			console.log("list_courses", list_courses);
                 },
                 method: "GET"
             });
