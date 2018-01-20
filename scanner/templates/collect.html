@@ -25,15 +25,15 @@
 				</div>
 			</div>
 			<div class="row">
-                    <div class="input-group input-group-lg mb-5">
-                        <input type="text" class="form-control" placeholder="Enter course index (e.g. FE1008)" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                <div class="input-group input-group-lg mb-5">
+                    <input type="text" id="search_input" class="form-control" placeholder="Enter course index (e.g. FE1008)" aria-label="Recipient's username" aria-describedby="basic-addon2">
 					<div class="input-group-append">
-						<button class="btn btn-primary" type="button"><i class="fas fa-search"></i> Search</button>
+						<button id="search_button" class="btn btn-primary" type="button"><i class="fas fa-search"></i> Search</button>
 					</div>
 				</div>
 			</div>
 				<div class="row">
-					<div class="course-list">
+					<div class="course-list" id="course-list">
 						<div class="card mb-4" data-toggle="modal" data-target="#confirmation_collect_modal">
 							<div class="card-body">
 								<h5 class="card-title">DR2008: User Experience in Design</h5>
@@ -134,7 +134,11 @@
 
 
 </body>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script
+    src="https://code.jquery.com/jquery-3.2.1.min.js"
+    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous">
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <style type="text/css">
@@ -179,6 +183,45 @@
 </style>
 
 <script>
+
+    $('#search_button').on('click', function() {
+        console.log($('#search_input')[0].value);
+        if ($('#search_input')[0].value.length >= 0) {
+
+            // $.ajax({
+            //     url: "192.168.1.126:8000/get_collection",
+            //     success: function(data) {
+            //         console.log("data", data);
+            //     },
+            //     method: "GET"
+            // });
+
+
+            // If search is not empty
+            $.get( "http://192.168.1.126:8000/get_collection", function( data ) {
+                console.log('get', data);
+                $("#course-list").append(`
+                    <div class="card mb-4" data-toggle="modal" data-target="#confirmation_collect_modal">
+                        <div class="card-body">
+                            <h5 class="card-title">` + data.key + `</h5>
+                            <p class="card-text">
+                                <span class="text-secondary">` + data.stock + `</span>
+                                <br>
+                                <span class="text-secondary">Available at: ` + data.location + `</span>
+                                <!--<br>
+                                    <span class="text-danger">Out of stock.</span> -->
+                            </p><!-- 
+                            <a href="#" class="btn btn-primary">Get this</a> -->
+                        </div>
+                    </div>
+                `)
+            });
+        } else {
+            // Empty, display all
+            console.log();
+        }
+    });
+
     $(function(){
 
         var initial_value = 0;
@@ -212,9 +255,13 @@
             function(){
                 $("#confirmation_collect_modal").modal('hide');
                 $("#success_collect_modal").modal('show');
+                $.post( "/post_collection", { key: "", value: -1 })
+                  .done(function( data ) {
+                  });
             }
         );
 
     });
+
 </script>
 </html>
