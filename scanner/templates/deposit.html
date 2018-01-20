@@ -60,7 +60,7 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					<p>Depositing DR2008 asdasd. Please put your notes on locker A001.</p>
+					<p>Depositing <span id="project_key"></span>. Please put your notes on locker A001.</p>
 
 					<div class="form-check">
 						<input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
@@ -157,10 +157,11 @@
 </style>
 
 <script>
+    var list_courses = [];
+    
     $(function(){
 
         var isChecked = false;
-        var list_courses = [];
 
         $('#defaultCheck1').click(
             function(){
@@ -190,7 +191,7 @@
             var data_post = {};
 
             list_courses.forEach(function(data){
-                if(data.key == key_chossen){
+                if(data.key == key_choosen){
                     data_post = data;
                 }
             });
@@ -203,7 +204,7 @@
                 success: function(responses) {
                 },
                 method: "POST",
-                data: JSON.stringify({key: key_chossen, stock: data_post.get("stock")+1})
+                data: JSON.stringify({key: window.key_choosen, stock: data_post["stock"]+1})
             });
         }
 
